@@ -1,8 +1,8 @@
 # Data Mining 4502 Course Project:
-jatu5220@colorado.edu
+Jake Henry Tuten(jatu5220@colorado.edu)
 
 
-Data Mining Final Project Report Grading Rubric (60 Points)
+# Data Mining Final Project Report Grading Rubric (60 Points)
 
 ## Understanding of the Problem (10 points) Clear definition and understanding of the problem: 10 points
 
