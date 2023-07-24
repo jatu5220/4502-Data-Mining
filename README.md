@@ -4,7 +4,7 @@ jatu5220@colorado.edu
 
 Data Mining Final Project Report Grading Rubric (60 Points)
 
-###Understanding of the Problem (10 points) Clear definition and understanding of the problem: 10 points
+### Understanding of the Problem (10 points) Clear definition and understanding of the problem: 10 points
 
 This project aims to leverage a variety of data mining techniques to gain insights into student loan trends, repayment patterns, and factors affecting loan defaults.
 
