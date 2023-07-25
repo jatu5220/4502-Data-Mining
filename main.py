@@ -6,6 +6,10 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import f1_score
+from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
@@ -78,6 +82,7 @@ print(correlations)
 
 # Plotting time series data
 home_secured_debt.set_index('Year').plot()
+plt.ylabel('Percentage')
 plt.show()
 
 #---------------------------------------------------------------
@@ -100,6 +105,12 @@ y_pred_rec = clf_rec.predict(X_test_rec)
 
 # Print the accuracy score
 print("Accuracy:", accuracy_score(y_test_rec, y_pred_rec))
+# Print the precision score
+print("Precision:", precision_score(y_test_rec, y_pred_rec, average = 'weighted', zero_division=1))
+# Print the recall score
+print("Recall:", recall_score(y_test_rec, y_pred_rec, average = 'weighted'))
+# Print the F1 score
+print("F1 Score:", f1_score(y_test_rec, y_pred_rec, average = 'weighted'))
 
 #---------------------------------------------------------------
 
@@ -112,6 +123,7 @@ non_mort_balance.set_index('Time', inplace=True)
 
 # Plotting the time series data
 non_mort_balance.plot()
+plt.ylabel("Billions of Dollars")
 plt.show()
 
 #---------------------------------------------------------------
@@ -122,9 +134,10 @@ plt.show()
 # Prepare the features (X) and the target (y)
 X_mlp = non_mort_balance.index.values.reshape(-1,1)
 y_mlp = non_mort_balance['Auto Loan']
+X_mlp_timestamp = X_mlp.astype(int) // 10**9
 
 # Split the data into training set and test set
-X_train_mlp, X_test_mlp, y_train_mlp, y_test_mlp = train_test_split(X_mlp, y_mlp, test_size=0.2, random_state=0)
+X_train_mlp, X_test_mlp, y_train_mlp, y_test_mlp = train_test_split(X_mlp_timestamp, y_mlp, test_size=0.2, random_state=0)
 
 # Train the model
 model_mlp = LinearRegression()
@@ -135,6 +148,8 @@ y_pred_mlp = model_mlp.predict(X_test_mlp)
 
 # Print the RMSE
 print("RMSE:", np.sqrt(mean_squared_error(y_test_mlp, y_pred_mlp)))
+# Print the MAE
+print("MAE:", np.sqrt(mean_absolute_error(y_test_mlp, y_pred_mlp)))
 
 #---------------------------------------------------------------
 
@@ -159,6 +174,7 @@ balance_by_age.set_index('Year', inplace=True)
 
 # Plotting the time series data
 balance_by_age.plot()
+plt.ylabel("Billions of Dollars")
 plt.show()
 
 #---------------------------------------------------------------
@@ -182,5 +198,7 @@ y_pred_age = model_age.predict(X_test_age)
 
 # Print the RMSE
 print("RMSE:", np.sqrt(mean_squared_error(y_test_age, y_pred_age)))
+# Print the MAE
+print("MAE:", np.sqrt(mean_absolute_error(y_test_age, y_pred_age)))
 
 #---------------------------------------------------------------
