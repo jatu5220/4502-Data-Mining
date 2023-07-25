@@ -1,6 +1,10 @@
 import csv
 import pandas as pd
 import re
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
 
 #-------------------DATA GATHERING----------------------------
 
@@ -58,13 +62,52 @@ def remove_outliers(df, column):
 #---------------------------------------------------------------
 
 
-#------------------CLUSTERING-----------------------------------
+#------------------DISTRIBUTION ANALYSIS-----------------------------------
 
 
+debt_distribution['NumberOfBorrowers'] = debt_distribution['NumberOfBorrowers'].str.replace(',', '').astype(int)
+debt_distribution.plot(x='Balance2014', y='NumberOfBorrowers', kind='bar', legend=False)
+plt.title('Distribution of Loan Balances in 2014')
+plt.xlabel('Loan Balance')
+plt.ylabel('Number of Borrowers')
+plt.show()
+
+#---------------------------------------------------------------
 
 
+#------------------CORRELATION ANALYSIS-----------------------------------
 
+correlations = home_secured_debt.corr()
+print(correlations)
 
+#---------------------------------------------------------------
+
+#------------------TIME SERIES ANALYSIS-----------------------------------
+
+# Plotting time series data
+home_secured_debt.set_index('Year').plot()
+plt.show()
+
+#---------------------------------------------------------------
+
+#------------------CLASSIFICATION MODEL FOR RECESSION-----------------------------------
+
+# Prepare the features (X) and the target (y)
+X = home_secured_debt[['HaveLoan27_30', 'NoLoan27_30']]
+y = home_secured_debt['Recession']
+
+# Split the data into training set and test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# Train the model
+clf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
+clf.fit(X_train, y_train)
+
+# Predict on the test data
+y_pred = clf.predict(X_test)
+
+# Print the accuracy score
+print("Accuracy:", accuracy_score(y_test, y_pred))
 
 
 #---------------------------------------------------------------
