@@ -5,15 +5,23 @@ import re
 #-------------------DATA GATHERING----------------------------
 
 # open first csv file
-with open('cc_defaulter/credit_card_defaulter.csv', 'r') as file1:
-    cc_csv = csv.reader(file1)
+with open('datasets/finace_student_loan_debt/balance_by_age.csv', 'r') as file1:
+    balance_by_age = csv.reader(file1)
 
 
 # open second csv file
-with open('cc_defaulter/bank-full.csv', 'r') as file2:
-    bank_csv = csv.reader(file2)
+with open('datasets/finace_student_loan_debt/debt_amt_distribution2014.csv', 'r') as file2:
+    debt_distribution = csv.reader(file2)
 
 
+# open third csv
+with open('datasets/finace_student_loan_debt/home_secured_debt_age30.csv', 'r') as file3:
+    home_secured_debt = csv.reader(file3)
+
+
+# open fourth csv
+with open('datasets/finace_student_loan_debt/non_mort_balance.csv', 'r') as file4:
+    debt_distribution = csv.reader(file4)
 #--------------------------------------------------------------
 
 
@@ -32,6 +40,7 @@ def remove_null_values(df):
     df = df.dropna()
     return df
 
+# use functions below on selected columns 
 
 #---------------------------------------------------------------
 
