@@ -85,22 +85,21 @@ plt.show()
 #------------------CLASSIFICATION MODEL FOR RECESSION-----------------------------------
 
 # Prepare the features (X) and the target (y)
-X = home_secured_debt[['HaveLoan27_30', 'NoLoan27_30']]
-y = home_secured_debt['Recession']
+X_rec = home_secured_debt[['HaveLoan27_30', 'NoLoan27_30']]
+y_rec = home_secured_debt['Recession']
 
 # Split the data into training set and test set
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+X_train_rec, X_test_rec, y_train_rec, y_test_rec = train_test_split(X_rec, y_rec, test_size=0.2, random_state=0)
 
 # Train the model
-clf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
-clf.fit(X_train, y_train)
+clf_rec = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
+clf_rec.fit(X_train_rec, y_train_rec)
 
 # Predict on the test data
-y_pred = clf.predict(X_test)
+y_pred_rec = clf_rec.predict(X_test_rec)
 
 # Print the accuracy score
-print("Accuracy:", accuracy_score(y_test, y_pred))
-
+print("Accuracy:", accuracy_score(y_test_rec, y_pred_rec))
 
 #---------------------------------------------------------------
 
@@ -121,22 +120,21 @@ plt.show()
 
 
 # Prepare the features (X) and the target (y)
-X = non_mort_balance.index.values.reshape(-1,1)
-y = non_mort_balance['Auto Loan']
+X_mlp = non_mort_balance.index.values.reshape(-1,1)
+y_mlp = non_mort_balance['Auto Loan']
 
 # Split the data into training set and test set
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+X_train_mlp, X_test_mlp, y_train_mlp, y_test_mlp = train_test_split(X_mlp, y_mlp, test_size=0.2, random_state=0)
 
 # Train the model
-model = LinearRegression()
-model.fit(X_train, y_train)
+model_mlp = LinearRegression()
+model_mlp.fit(X_train_mlp, y_train_mlp)
 
 # Predict on the test data
-y_pred = model.predict(X_test)
+y_pred_mlp = model_mlp.predict(X_test_mlp)
 
 # Print the RMSE
-print("RMSE:", np.sqrt(mean_squared_error(y_test, y_pred)))
-
+print("RMSE:", np.sqrt(mean_squared_error(y_test_mlp, y_pred_mlp)))
 
 #---------------------------------------------------------------
 
@@ -169,19 +167,20 @@ plt.show()
 #---------------FORECASTING BY AGE------------------------------
 
 # Prepare the features (X) and the target (y)
-X = balance_by_age.index.year.values.reshape(-1, 1)
-y = balance_by_age['under30']
+X_age = balance_by_age.index.year.values.reshape(-1, 1)
+y_age = balance_by_age['under30']
 
 # Split the data into training set and test set
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+X_train_age, X_test_age, y_train_age, y_test_age = train_test_split(X_age, y_age, test_size=0.2, random_state=0)
 
 # Train the model
-model = LinearRegression()
-model.fit(X_train, y_train)
+model_age = LinearRegression()
+model_age.fit(X_train_age, y_train_age)
 
 # Predict on the test data
-y_pred = model.predict(X_test)
+y_pred_age = model_age.predict(X_test_age)
 
 # Print the RMSE
-print("RMSE:", np.sqrt(mean_squared_error(y_test, y_pred)))
+print("RMSE:", np.sqrt(mean_squared_error(y_test_age, y_pred_age)))
+
 #---------------------------------------------------------------
