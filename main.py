@@ -1,5 +1,6 @@
 import csv
-
+import pandas as pd
+import re
 
 #-------------------DATA GATHERING----------------------------
 
@@ -22,9 +23,14 @@ with open('cc_defaulter/bank-full.csv', 'r') as file2:
 
 # Remove outliers
 
+def remove_special_characters(df, column):
+    # Use regular expression to replace special characters with ''
+    df[column] = df[column].apply(lambda row: re.sub(r'[^A-Za-z0-9 ]+', '', row))
+    return df
 
-
-
+def remove_null_values(df):
+    df = df.dropna()
+    return df
 
 
 #---------------------------------------------------------------
@@ -43,6 +49,18 @@ with open('cc_defaulter/bank-full.csv', 'r') as file2:
 
 
 #--------------------REGRESSION---------------------------------
+
+
+
+
+
+
+
+#---------------------------------------------------------------
+
+#---------------------MACHINE LEARNING PREDICTION---------------
+
+
 
 
 
