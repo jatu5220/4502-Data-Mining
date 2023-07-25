@@ -21,7 +21,7 @@ with open('datasets/finace_student_loan_debt/home_secured_debt_age30.csv', 'r') 
 
 # open fourth csv
 with open('datasets/finace_student_loan_debt/non_mort_balance.csv', 'r') as file4:
-    debt_distribution = csv.reader(file4)
+    non_mort_balance = csv.reader(file4)
 #--------------------------------------------------------------
 
 
@@ -39,6 +39,19 @@ def remove_special_characters(df, column):
 def remove_null_values(df):
     df = df.dropna()
     return df
+
+def remove_outliers(df, column):
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    
+    # Define criteria for an outlier
+    outlier_condition = (df[column] >= Q1 - 1.5 * IQR) & (df[column] <= Q3 + 1.5 * IQR)
+    
+    # Remove outliers
+    df_out = df.loc[outlier_condition]
+    
+    return df_out
 
 # use functions below on selected columns 
 
