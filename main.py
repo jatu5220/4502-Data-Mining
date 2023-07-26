@@ -10,8 +10,11 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score
 from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import mean_squared_error
 from sklearn.cluster import KMeans
 
@@ -100,8 +103,16 @@ X_train_rec, X_test_rec, y_train_rec, y_test_rec = train_test_split(X_rec, y_rec
 clf_rec = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
 clf_rec.fit(X_train_rec, y_train_rec)
 
+logistic_model = LogisticRegression()
+logistic_model.fit(X_train_rec, y_train_rec)
+
+decision_tree_model = DecisionTreeClassifier()
+decision_tree_model.fit(X_train_rec, y_train_rec)
+
 # Predict on the test data
 y_pred_rec = clf_rec.predict(X_test_rec)
+y_pred_logistic = logistic_model.predict(X_test_rec)
+y_pred_decisionTree = decision_tree_model.predict(X_test_rec)
 
 # Print the accuracy score
 print("Accuracy:", accuracy_score(y_test_rec, y_pred_rec))
@@ -111,6 +122,12 @@ print("Precision:", precision_score(y_test_rec, y_pred_rec, average = 'weighted'
 print("Recall:", recall_score(y_test_rec, y_pred_rec, average = 'weighted'))
 # Print the F1 score
 print("F1 Score:", f1_score(y_test_rec, y_pred_rec, average = 'weighted'))
+# Print the Logistic Regression Accuracy
+print("Logistic Regression Accuracy:", accuracy_score(y_test_rec, y_pred_logistic))
+# Print the Decision Tree Accuracy
+print("Decision Tree Accuracy:", accuracy_score(y_test_rec, y_pred_decisionTree))
+# Print the Logistic Regression Report
+print("Logistic Regression Report:", classification_report(y_test_rec, y_pred_logistic))
 
 #---------------------------------------------------------------
 
